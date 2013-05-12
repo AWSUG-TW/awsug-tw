@@ -7,23 +7,23 @@ default_run_options[:pty] = true
 set :rvm_ruby_string, 'ruby-2.0.0-p0'
 set :rvm_type, :user
 
-set :application, "ruby-china"
-set :repository,  "git://github.com/ruby-china/ruby-china.git"
+set :application, "awsug-tw"
+set :repository,  "git@github.com:AWSUG-TW/awsug-tw.git"
 set :branch, "master"
 set :scm, :git
-set :user, "ruby"
+set :user, "deployer"
 if ENV["DEPLOY"] == "pre"
-  set :deploy_to, "/data/www/#{application}-pre"
+  set :deploy_to, "/home/deployer/#{application}-pre"
 else
-  set :deploy_to, "/data/www/#{application}"
+  set :deploy_to, "/home/deployer/#{application}"
 end
 set :runner, "ruby"
-# set :deploy_via, :remote_cache
-# set :git_shallow_clone, 1
+set :deploy_via, :remote_cache
+set :git_shallow_clone, 1
 
-role :web, "s2.ruby-china.org"                          # Your HTTP server, Apache/etc
-role :app, "s2.ruby-china.org"                          # This may be the same as your `Web` server
-role :db,  "s2.ruby-china.org", :primary => true # This is where Rails migrations will run
+role :web, "www.awsug.tw"                          # Your HTTP server, Apache/etc
+role :app, "www.awsug.tw"                          # This may be the same as your `Web` server
+role :db,  "www.awsug.tw", :primary => true # This is where Rails migrations will run
 
 # unicorn.rb 路径
 set :unicorn_path, "#{deploy_to}/current/config/unicorn.rb"
@@ -65,9 +65,23 @@ task :init_shared_path, :roles => :web do
   run "mkdir -p #{deploy_to}/shared/log"
   run "mkdir -p #{deploy_to}/shared/pids"
   run "mkdir -p #{deploy_to}/shared/assets"
+  run "mkdir -p #{deploy_to}/shared/tmp/sockets"
+  run "mkdir -p #{deploy_to}/shared/config/initializers"
+
 end
 
 task :link_shared_files, :roles => :web do
+  put File.read("config/nginx.conf"), "#{deploy_to}/shared/config/nginx.conf"
+  sudo "ln -nfs #{deploy_to}/shared/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
+
+  put File.read("config/config.yml"), "#{deploy_to}/shared/config/config.yml"
+  put File.read("config/mongoid.yml"), "#{deploy_to}/shared/config/mongoid.yml"
+  put File.read("config/redis.yml"), "#{deploy_to}/shared/config/redis.yml"
+  put File.read("config/thin.yml"), "#{deploy_to}/shared/config/thin.yml"
+  put File.read("config/unicorn.rb"), "#{deploy_to}/shared/config/unicorn.rb"
+  put File.read("faye_server/thin.yml"), "#{deploy_to}/shared/config/thin.yml"
+  put File.read("config/initializers/secret_token.rb"), "#{deploy_to}/shared/config/initializers/secret_token.rb"
+  
   run "ln -sf #{deploy_to}/shared/config/*.yml #{deploy_to}/current/config/"
   run "ln -sf #{deploy_to}/shared/config/unicorn.rb #{deploy_to}/current/config/"
   run "ln -sf #{deploy_to}/shared/config/initializers/secret_token.rb #{deploy_to}/current/config/initializers"
@@ -90,4 +104,11 @@ task :mongoid_migrate_database, :roles => :web do
   run "cd #{deploy_to}/current/; RAILS_ENV=production bundle exec rake db:migrate"
 end
 
-after "deploy:finalize_update","deploy:symlink", :init_shared_path, :link_shared_files#, :compile_assets, :sync_assets_to_cdn, :mongoid_migrate_database
+namespace :remote_rake do
+  desc "Run a task on remote servers, ex: cap staging rake:invoke task=cache:clear"
+  task :invoke do
+    run "cd #{deploy_to}/current; RAILS_ENV=#{rails_env} bundle exec rake #{ENV['task']}"
+  end
+end
+
+after "deploy:finalize_update","deploy:symlink", :init_shared_path, :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
