@@ -84,5 +84,5 @@ CarrierWave.configure do |config|
     :region                 => Setting.s3_fog_region  # optional, defaults to 'us-east-1'
   }
   config.fog_directory  = 'cdn1.awsug.tw/uploads'                     # required
-  config.fog_host       = "#{Setting.upload_url}uploads"
+  config.fog_host       = "#{Setting.upload_url}/uploads"
 end
