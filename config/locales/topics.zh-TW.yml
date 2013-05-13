@@ -14,9 +14,10 @@
     submit_reply: "送出回應"
     topic_list:
       hot_topic: "熱門話題"
-      recent: "最新创建"
-      popular: "优质帖子"
-      no_reply: "无人问津"
+      recent: "最新話題"
+      popular: "流行話題"
+      no_reply: "無人回應"
+    read_topic: "瀏覽話題"
     create_topic_success: "話題新增成功"
     delete_topic_success: "話題刪除成功"
     update_topic_success: "話題修改成功。"
