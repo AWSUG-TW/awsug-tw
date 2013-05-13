@@ -37,9 +37,15 @@ RubyChina::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => Setting.domain }
-  config.action_mailer.delivery_method   = :postmark
-  config.action_mailer.postmark_settings = { :api_key => Setting.email_password }
-
+  # config.action_mailer.delivery_method   = :postmark
+  # config.action_mailer.postmark_settings = { :api_key => Setting.email_password }
+  config.action_mailer.smtp_settings = {
+          :address => "email-smtp.us-east-1.amazonaws.com",
+          :user_name => Setting.email_user, # Your SMTP user here.
+          :password => Setting.email_password,  # Your SMTP password here.
+          :authentication => :login,
+          :enable_starttls_auto => true
+  }
   # Enable threaded mode
   # config.threadsafe!
   

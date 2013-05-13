@@ -18,9 +18,15 @@ RubyChina::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = { :host => Setting.domain }
-  config.action_mailer.delivery_method   = :postmark
-  config.action_mailer.postmark_settings = { :api_key => Setting.email_password }
-
+  # config.action_mailer.delivery_method   = :postmark
+  # config.action_mailer.postmark_settings = { :api_key => Setting.email_password }
+  config.action_mailer.smtp_settings = {
+          :address => "email-smtp.us-east-1.amazonaws.com",
+          :user_name => Setting.email_user, # Your SMTP user here.
+          :password => Setting.email_password,  # Your SMTP password here.
+          :authentication => :login,
+          :enable_starttls_auto => true
+  }
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
   # config.cache_store = [:dalli_store,"127.0.0.1", {:namespace => "rb-cn", :compression => true}]
