@@ -12,8 +12,9 @@ gem 'exception_notification'
 
 # 上传组件
 gem 'carrierwave', '0.6.2'
-gem 'carrierwave-upyun', '0.1.5'
+gem "fog", "~> 1.3.1"
 gem 'mini_magick','3.3', :require => false
+
 
 # Mongoid 辅助插件
 gem "mongoid", "3.1.1"

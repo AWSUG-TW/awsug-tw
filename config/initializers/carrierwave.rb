@@ -76,9 +76,13 @@ end # CarrierWave
 Mongoid::Document::ClassMethods.send(:include, CarrierWave::Mongoid)
 
 CarrierWave.configure do |config|
-  config.storage = :upyun
-  config.upyun_username = Setting.upyun_username
-  config.upyun_password = Setting.upyun_password
-  config.upyun_bucket = Setting.upyun_bucket
-  config.upyun_bucket_domain = Setting.upload_url.gsub("http://","")
+  config.storage = :fog
+  config.fog_credentials = {
+    :provider               => 'AWS',       # required
+    :aws_access_key_id      => Setting.s3_access_key_id,       # required
+    :aws_secret_access_key  => Setting.s3_secret_access_key,       # required
+    :region                 => 'ap-northeast-1'  # optional, defaults to 'us-east-1'
+  }
+  config.fog_directory  = 'cdn1.awsug.tw/uploads'                     # required
+  config.fog_host       = Setting.upload_url
 end
