@@ -34,7 +34,7 @@ RubyChina::Application.configure do
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = Setting.upload_url
   # config.action_controller.asset_host = Setting.upload_url
-  config.assets.prefix = "cdn1.awsug.tw/assets"
+  config.assets.prefix = "/assets"
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => Setting.domain }
