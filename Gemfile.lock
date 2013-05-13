@@ -50,6 +50,9 @@ GEM
       rails (>= 3.1.0)
       sass-rails
     arel (3.0.2)
+    asset_sync (0.5.4)
+      activemodel
+      fog
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.3.1)
     bootstrap-will_paginate (0.0.3)
@@ -365,6 +368,7 @@ PLATFORMS
 DEPENDENCIES
   anjlab-bootstrap-rails (= 2.0.3.2)
   api_taster
+  asset_sync
   bootstrap-will_paginate (= 0.0.3)
   bootstrap_helper (= 1.4.1)
   cache_digests

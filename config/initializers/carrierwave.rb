@@ -81,7 +81,7 @@ CarrierWave.configure do |config|
     :provider               => 'AWS',       # required
     :aws_access_key_id      => Setting.s3_access_key_id,       # required
     :aws_secret_access_key  => Setting.s3_secret_access_key,       # required
-    :region                 => 'ap-northeast-1'  # optional, defaults to 'us-east-1'
+    :region                 => Setting.s3_fog_region  # optional, defaults to 'us-east-1'
   }
   config.fog_directory  = 'cdn1.awsug.tw/uploads'                     # required
   config.fog_host       = Setting.upload_url
