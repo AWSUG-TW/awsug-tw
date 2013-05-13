@@ -88,6 +88,9 @@ task :link_shared_files, :roles => :web do
   run "ln -sf #{deploy_to}/shared/config/faye_thin.yml #{deploy_to}/current/faye_server/thin.yml"
 end
 
+after "deploy:setup", "init_shared_path"
+after "deploy:setup", "link_shared_files"
+
 task :mongoid_create_indexes, :roles => :web do
   run "cd #{deploy_to}/current/; RAILS_ENV=production bundle exec rake db:mongoid:create_indexes"
 end
@@ -102,13 +105,6 @@ end
 
 task :mongoid_migrate_database, :roles => :web do
   run "cd #{deploy_to}/current/; RAILS_ENV=production bundle exec rake db:migrate"
-end
-
-namespace :remote_rake do
-  desc "Run a task on remote servers, ex: cap staging rake:invoke task=cache:clear"
-  task :invoke do
-    run "cd #{deploy_to}/current; RAILS_ENV=#{rails_env} bundle exec rake #{ENV['task']}"
-  end
 end
 
 after "deploy:finalize_update","deploy:symlink", :init_shared_path, :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
