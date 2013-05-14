@@ -79,7 +79,7 @@ task :link_shared_files, :roles => :web do
   put File.read("config/redis.yml"), "#{deploy_to}/shared/config/redis.yml"
   put File.read("config/thin.yml"), "#{deploy_to}/shared/config/thin.yml"
   put File.read("config/unicorn.rb"), "#{deploy_to}/shared/config/unicorn.rb"
-  put File.read("faye_server/thin.yml"), "#{deploy_to}/shared/config/thin.yml"
+  put File.read("faye_server/thin.yml"), "#{deploy_to}/shared/config/faye_thin.yml"
   put File.read("config/initializers/secret_token.rb"), "#{deploy_to}/shared/config/initializers/secret_token.rb"
   
   run "ln -sf #{deploy_to}/shared/config/*.yml #{deploy_to}/current/config/"
