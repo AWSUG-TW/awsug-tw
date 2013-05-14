@@ -59,7 +59,7 @@ gem "cells", "3.8.8"
 # 队列
 gem "sidekiq", "2.5.3"
 
-gem 'faye-rails','1.0.0'
+gem 'faye-rails','1.0.8'
 
 # 分享功能
 gem "social-share-button", "~> 0.1.0"
