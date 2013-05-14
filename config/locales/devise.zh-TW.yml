@@ -6,7 +6,11 @@
       not_locked: "沒有鎖定"
       not_saved: "有 %{count} 個錯誤發生導致「%{model}」無法被儲存。 "
   devise:
+    omniauth_callbacks:
+      user:
+        failure: '第三方登入異常，請重新嘗試.'
     failure:
+      already_authenticated: '你已經登入了喔.'
       unauthenticated: '繼續操作前請註冊或者登錄.'
       unconfirmed: '請先啟動您的帳號'
       locked: '您的帳號已被鎖定。'
@@ -14,6 +18,8 @@
       invalid_token: '認證碼無效。'
       timeout: '您已登入超時，請重新登入。'
       inactive: '您還沒有啟動帳戶。'
+      user:
+        not_found_in_database: '沒有這個帳號，請重新註冊.'
     sessions:
       signed_in: '登入成功。'
       signed_out: '登出成功。'
