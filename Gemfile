@@ -1,5 +1,5 @@
 # coding: utf-8
-source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
 
 gem "rails", "3.2.13"
 gem "rails-i18n","0.1.8"
@@ -59,7 +59,9 @@ gem "cells", "3.8.8"
 # 队列
 gem "sidekiq", "2.5.3"
 
+
 gem 'faye-rails','1.0.8'
+gem 'thin', "1.5.0"
 
 # 分享功能
 gem "social-share-button", "~> 0.1.0"
@@ -89,7 +91,6 @@ group :development, :test do
   gem "capybara", :require => false
   gem 'api_taster'
   gem "letter_opener"
-  gem 'thin', "1.5.0"
 
   # 禁用 assets 日志
   gem 'quiet_assets', "1.0.1"
@@ -98,7 +99,7 @@ group :development, :test do
   gem "sprite-factory", "1.4.1", :require => false
   gem 'chunky_png', "1.2.5", :require => false
 
-  gem 'jasmine', '1.2.1'
+  gem 'jasmine', '1.3.1'
 
   gem "mongoid_colored_logger", "0.2.2"
 end
