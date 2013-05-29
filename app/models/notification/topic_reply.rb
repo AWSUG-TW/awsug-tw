@@ -7,7 +7,7 @@ class Notification::TopicReply < Notification::Base
   def notify_hash
     return "" if self.reply.blank?
     { 
-      :title => "关注的话题有了新回复:", 
+      :title => "追蹤的話題有了新回應:", 
       :content => self.reply_body[0,30],
       :content_path => self.content_path
     } 

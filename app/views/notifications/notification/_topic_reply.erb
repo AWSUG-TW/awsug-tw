@@ -3,7 +3,7 @@
   topic = reply.topic
   action_label = ""
   if !owner?(topic)
-    action_label = "关注"
+    action_label = "追蹤"
   end
 %>
 <td class="face">
@@ -14,7 +14,7 @@
     <span class="user">
       <%= user_name_tag(reply.user) %>
     </span>
-    回复了你<%= action_label %>的主题：
+    回應了你<%= action_label %>的主題：
     <%= render_topic_title(topic) %>
     <% if !notification.read? %>
       <span class="new label label-warning">新</span>

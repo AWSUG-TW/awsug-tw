@@ -35,7 +35,7 @@ module TopicsHelper
       class_name = "followed"
     end
     icon = content_tag("i", "", :class => "icon small_#{class_name}")
-    link_to raw([icon,"关注"].join(" ")), "#", :onclick => "return Topics.follow(this);",
+    link_to raw([icon,"追蹤"].join(" ")), "#", :onclick => "return Topics.follow(this);",
                         'data-id' => topic.id,
                         'data-followed' => (class_name == "followed"),
                         :rel => "twipsy"
