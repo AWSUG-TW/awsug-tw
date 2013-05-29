@@ -71,18 +71,18 @@ window.App =
           type : likeable_type
       if likes_count > 0
         likes_count -= 1
-      $el.data("state","").data('count', likes_count).attr("title", "喜欢")
+      $el.data("state","").data('count', likes_count).attr("title", "喜歡")
       if likes_count == 0
-        $('span',el).text("喜欢")
+        $('span',el).text("喜歡")
       else
-        $('span',el).text("#{likes_count}人喜欢")
+        $('span',el).text("#{likes_count}人喜歡")
       $("i.icon",el).attr("class","icon small_like")
     false
 
   likeableAsLiked : (el) ->
     likes_count = $(el).data("count")
-    $(el).data("state","liked").attr("title", "取消喜欢")
-    $('span',el).text("#{likes_count}人喜欢")
+    $(el).data("state","liked").attr("title", "取消喜歡")
+    $('span',el).text("#{likes_count}人喜歡")
     $("i.icon",el).attr("class","icon small_liked")
 
   # 绑定 @ 回复功能
