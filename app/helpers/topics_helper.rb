@@ -62,6 +62,6 @@ module TopicsHelper
     return if topic.blank?
     grouped_collection_select :topic, :node_id, Section.all,
                     :sorted_nodes, :name, :id, :name, {:value => topic.node_id,
-                    :include_blank => true, :prompt => "选择节点"}, :style => "width:145px;"
+                    :include_blank => true, :prompt => "選擇節點"}, :style => "width:145px;"
   end
 end
